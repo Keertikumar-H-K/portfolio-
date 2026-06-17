@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --red: #E8272A;
+  --red-dark: #C01F22;
+  --red-light: #FF4447;
+  --black: #0A0A0A;
+  --dark: #111111;
+  --dark2: #1A1A1A;
+  --gray: #2A2A2A;
+  --text: #E8E8E8;
+  --text-muted: #888;
+  --white: #FFFFFF;
+  --radius: 16px;
+}
