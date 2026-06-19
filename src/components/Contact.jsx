@@ -109,13 +109,13 @@ export default function Contact() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
               <div>
                 <label style={{ fontSize: 13, color: 'var(--text-muted)', fontWeight: 500, display: 'block', marginBottom: 6 }}>Your Name</label>
-                <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required placeholder="Keerti Kumar" style={inputStyle}
+                <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required placeholder="" style={inputStyle}
                   onFocus={e => e.target.style.borderColor = 'rgba(232,39,42,0.5)'}
                   onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.08)'} />
               </div>
               <div>
                 <label style={{ fontSize: 13, color: 'var(--text-muted)', fontWeight: 500, display: 'block', marginBottom: 6 }}>Email Address</label>
-                <input type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required placeholder="hello@company.com" style={inputStyle}
+                <input type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required placeholder="" style={inputStyle}
                   onFocus={e => e.target.style.borderColor = 'rgba(232,39,42,0.5)'}
                   onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.08)'} />
               </div>
@@ -123,7 +123,7 @@ export default function Contact() {
 
             <div>
               <label style={{ fontSize: 13, color: 'var(--text-muted)', fontWeight: 500, display: 'block', marginBottom: 6 }}>Subject</label>
-              <input value={form.subject} onChange={e => setForm({ ...form, subject: e.target.value })} required placeholder="Job opportunity / Project collaboration" style={inputStyle}
+              <input value={form.subject} onChange={e => setForm({ ...form, subject: e.target.value })} required placeholder="" style={inputStyle}
                 onFocus={e => e.target.style.borderColor = 'rgba(232,39,42,0.5)'}
                 onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.08)'} />
             </div>
@@ -131,7 +131,7 @@ export default function Contact() {
             <div>
               <label style={{ fontSize: 13, color: 'var(--text-muted)', fontWeight: 500, display: 'block', marginBottom: 6 }}>Message</label>
               <textarea value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} required rows={6}
-                placeholder="Hi Keerti, I'd love to discuss a Full Stack Developer position at our company..."
+                placeholder=""
                 style={{ ...inputStyle, resize: 'vertical', minHeight: 150 }}
                 onFocus={e => e.target.style.borderColor = 'rgba(232,39,42,0.5)'}
                 onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.08)'} />
