@@ -1,19 +1,33 @@
-import { useRef, useState } from 'react'
-import { Mail, Phone, MapPin, Send, Linkedin, Github, CheckCircle, AlertCircle } from 'lucide-react'
+import { useState } from 'react'
+import { Mail, MapPin, Send, Linkedin, Github, CheckCircle, AlertCircle } from 'lucide-react'
+
+const EMAILJS_SERVICE_ID  = 'service_hxyacss'   // ✅ your service ID
+const EMAILJS_TEMPLATE_ID = 'template_0j3akh9'  // ← paste from EmailJS → Email Templates
+const EMAILJS_PUBLIC_KEY  = 'C-__NRLHCK_RQ1c8o'   // ← paste from EmailJS → Account → General
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
-  const [status, setStatus] = useState(null) // 'loading' | 'success' | 'error'
-  const EMAILJS_SERVICE_ID  = 'service_hxyacss'  // ← paste new one
+  const [status, setStatus] = useState(null)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setStatus('loading')
     try {
-      const res = await fetch('https://portfolio-2bqe.onrender.com/api/contact', {
+      const res = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form)
+        body: JSON.stringify({
+          service_id:  EMAILJS_SERVICE_ID,
+          template_id: EMAILJS_TEMPLATE_ID,
+          user_id:     EMAILJS_PUBLIC_KEY,
+          template_params: {
+            from_name:  form.name,
+            from_email: form.email,
+            subject:    form.subject,
+            message:    form.message,
+            to_name:    'Keerti Kumar HK',
+          }
+        })
       })
       if (res.ok) {
         setStatus('success')
@@ -40,9 +54,9 @@ export default function Contact() {
       <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative', zIndex: 1 }}>
         <div style={{ textAlign: 'center', marginBottom: 64 }}>
           <span style={{ fontSize: 13, color: 'var(--red)', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}>Get In Touch</span>
-         <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 'clamp(32px, 3.5vw, 48px)', fontWeight: 800, marginTop: 8, color: 'var(--white)' }}>
-  Let's Build Something<br /><span style={{ color: 'var(--red)' }}>Together</span>
-</h2>
+          <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 'clamp(32px, 3.5vw, 48px)', fontWeight: 800, marginTop: 8, color: 'var(--white)' }}>
+            Let's Build Something<br /><span style={{ color: 'var(--red)' }}>Together</span>
+          </h2>
           <p style={{ fontSize: 16, color: 'var(--text-muted)', marginTop: 16, maxWidth: 480, margin: '16px auto 0' }}>
             I'm actively looking for full-time opportunities. Whether you have a project, a role, or just want to connect — my inbox is open.
           </p>
@@ -53,7 +67,6 @@ export default function Contact() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
             {[
               { icon: <Mail size={20} />, label: 'Email', value: 'keertikumar543@gmail.com', href: 'mailto:keertikumar543@gmail.com' },
-              
               { icon: <MapPin size={20} />, label: 'Location', value: 'Bengaluru, Karnataka', href: null },
             ].map(item => (
               <div key={item.label} style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
@@ -75,10 +88,10 @@ export default function Contact() {
 
             <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 24, marginTop: 8 }}>
               <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 16 }}>Find me on</p>
-              <div style={{ display: 'flex', gap: 12 }}>
+              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                 {[
-                  { href: 'https://www.linkedin.com/in/keertikumar-h-k-363a88327/', icon: <Linkedin size={20} />, label: 'LinkedIn' },
-                  { href: 'https://github.com/Keertikumar-H-K', icon: <Github size={20} />, label: 'GitHub' },
+                  { href: 'https://www.linkedin.com/in/keertikumar-h-k-363a88327/', icon: <Linkedin size={16} />, label: 'LinkedIn' },
+                  { href: 'https://github.com/Keertikumar-H-K', icon: <Github size={16} />, label: 'GitHub' },
                   { href: 'https://leetcode.com/u/Keertikumar_01/', icon: '🧩', label: 'LeetCode' },
                 ].map(s => (
                   <a key={s.label} href={s.href} target="_blank" rel="noreferrer"
@@ -101,7 +114,7 @@ export default function Contact() {
                 <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#4ade80', animation: 'ping 2s infinite' }} />
                 <span style={{ fontSize: 13, color: '#4ade80', fontWeight: 600 }}>Open to Work</span>
               </div>
-              <p style={{ fontSize: 13, color: 'var(--text-muted)', lineHeight: 1.5 }}>Actively looking for Full Stack / Backend roles. Graduating June 2026.</p>
+              <p style={{ fontSize: 13, color: 'var(--text-muted)', lineHeight: 1.5 }}>Actively looking for Full Stack / Backend roles.</p>
             </div>
           </div>
 
@@ -110,13 +123,13 @@ export default function Contact() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
               <div>
                 <label style={{ fontSize: 13, color: 'var(--text-muted)', fontWeight: 500, display: 'block', marginBottom: 6 }}>Your Name</label>
-                <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required placeholder="" style={inputStyle}
+                <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required placeholder="Jane Smith" style={inputStyle}
                   onFocus={e => e.target.style.borderColor = 'rgba(232,39,42,0.5)'}
                   onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.08)'} />
               </div>
               <div>
                 <label style={{ fontSize: 13, color: 'var(--text-muted)', fontWeight: 500, display: 'block', marginBottom: 6 }}>Email Address</label>
-                <input type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required placeholder="" style={inputStyle}
+                <input type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required placeholder="hello@company.com" style={inputStyle}
                   onFocus={e => e.target.style.borderColor = 'rgba(232,39,42,0.5)'}
                   onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.08)'} />
               </div>
@@ -124,7 +137,7 @@ export default function Contact() {
 
             <div>
               <label style={{ fontSize: 13, color: 'var(--text-muted)', fontWeight: 500, display: 'block', marginBottom: 6 }}>Subject</label>
-              <input value={form.subject} onChange={e => setForm({ ...form, subject: e.target.value })} required placeholder="" style={inputStyle}
+              <input value={form.subject} onChange={e => setForm({ ...form, subject: e.target.value })} required placeholder="Job opportunity / Project collaboration" style={inputStyle}
                 onFocus={e => e.target.style.borderColor = 'rgba(232,39,42,0.5)'}
                 onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.08)'} />
             </div>
@@ -132,7 +145,7 @@ export default function Contact() {
             <div>
               <label style={{ fontSize: 13, color: 'var(--text-muted)', fontWeight: 500, display: 'block', marginBottom: 6 }}>Message</label>
               <textarea value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} required rows={6}
-                placeholder=""
+                placeholder="Hi Keerti, I'd love to discuss a Full Stack Developer position..."
                 style={{ ...inputStyle, resize: 'vertical', minHeight: 150 }}
                 onFocus={e => e.target.style.borderColor = 'rgba(232,39,42,0.5)'}
                 onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.08)'} />
@@ -149,14 +162,16 @@ export default function Contact() {
               }}
               onMouseEnter={e => { if (status !== 'loading') e.currentTarget.style.transform = 'translateY(-2px)' }}
               onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}>
-              {status === 'loading' ? <>Sending... <span style={{ animation: 'spin 1s linear infinite', display: 'inline-block' }}>⟳</span></> :
-                status === 'success' ? <><CheckCircle size={18} /> Message Sent!</> :
-                  <><Send size={18} /> Send Message</>}
+              {status === 'loading'
+                ? <><span style={{ animation: 'spin 1s linear infinite', display: 'inline-block' }}>⟳</span> Sending...</>
+                : status === 'success'
+                  ? <><CheckCircle size={18} /> Message Sent!</>
+                  : <><Send size={18} /> Send Message</>}
             </button>
 
             {status === 'error' && (
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '12px 18px', background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: 12, fontSize: 14, color: '#fca5a5' }}>
-                <AlertCircle size={16} /> Message failed. Email me directly at keertikumar543@gmail.com
+                <AlertCircle size={16} /> Failed. Email me directly at keertikumar543@gmail.com
               </div>
             )}
           </form>
