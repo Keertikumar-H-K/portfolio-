@@ -4,6 +4,7 @@ import { Mail, Phone, MapPin, Send, Linkedin, Github, CheckCircle, AlertCircle }
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
   const [status, setStatus] = useState(null) // 'loading' | 'success' | 'error'
+  const EMAILJS_SERVICE_ID  = 'service_hxyacss'  // ← paste new one
 
   const handleSubmit = async (e) => {
     e.preventDefault()
