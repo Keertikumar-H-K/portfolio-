@@ -16,6 +16,12 @@
 
 ## 🖥️ Preview
 
+🖥️ Preview
+ 
+![Portfolio Homepage](./public/portfolio-preview.png)
+ 
+![Portfolio Projects Section](./public/portfolio-preview1.png)
+
 | Section | What's Inside |
 |---------|--------------|
 | Hero | Animated typewriter · Stats card · Intro video modal |
